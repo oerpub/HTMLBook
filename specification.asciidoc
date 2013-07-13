@@ -14,7 +14,7 @@ If no content model or attribute requirements are explicitly specified, then OER
 
 === Revision History and Notes
 
-13 July 2013: Zeroth release of Working Draft, don't pay attention to this yet.
+13 July 2013: Zeroth release of Working Draft, don't pay attention to this yet. Just started with section and para.
 
 === Book Component elements
 
