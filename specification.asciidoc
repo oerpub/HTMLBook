@@ -24,28 +24,22 @@ These elements will be specified later.
 
 *HTML element*: +<section>+
 
-*Attribute requirements*: ++data-type="sect1"++, ++data-type="sect2"++, ++data-type="sect3"++, ++data-type="sect4"++, ++data-type="sect5"++ footnote:[From DocBook vocabulary], depending on hierarchy level. +sect1+ is used for +<section>+ elements nested directly in main Book components ("chapter", "appendix", etc.). +sect2+ is used for ++<section>++ elements nested in a +sect1+ ++<section>++, +sect3+ is used for +<section>+ elements nested in a +sect2+ +<section>+, and so on. 
+*Attribute requirements*: ++id++
 
-*Content model*: The first child must be a main heading element corresponding to the hierarchy level indicated by +data-type+ value, as follows:
+*Optional attribues*: ++data-label++, ++data-type=''sect<#>''++ for compatibility with HTMLBook, ++data-subtype++ A user defined type of section, for compatibility with CNXML. SubType can be any user-defined value that reflects the purpose of the section.
 
-----
-"sect1" -> h1
-"sect2" -> h2
-"sect3" -> h3
-"sect4" -> h4
-"sect5" -> h5
-----
+*Content model*: The first child must be a main heading element corresponding to the title of the section. The hierarchy level can either be ++<h1>++ or can correspond to the presumed nesting level of the section to aid older browsers and current screen readers in understanding the document hierarchy. Styling of the headings should be done structurally, according to the section nesting, however, rather than using the header level.
 
-The heading is followed by zero or more subheading elements whose hierarchy level is one lower than the main heading (e.g., +<h2>+ for a ++sect1++), folloed by zero or more Block elements, followed by zero or more +<section>+ elements with a +data-type+ value one level lower in the hierarchy, as long as the parent section is a "sect4" or higher (e.g., +<section data-type="sect4">+ nested in +<section data-type="sect3">+)
+The heading is followed by zero or more subheading elements whose hierarchy level is one lower than the main heading (e.g., +<h2>+ for a ++sect1++), folloed by zero or more Block elements, followed by zero or more +<section>+ elements
 
 *Example*:
 
 ----
-<section data-type="sect1">
+<section data-type="sect1" id="sect1">
   <h1>A-Head</h1>
   <p>If you httpparty, you must party hard</p>
   <!-- Some more paragraphs -->
-  <section data-type="sect2">
+  <section data-type="sect2" id="sect2" data-label="Custom Label">
     <h2>B-Head</h2>
     <p>What's the frequency, Kenneth?</p>
     <!-- And so on... -->
@@ -65,7 +59,33 @@ The heading is followed by zero or more subheading elements whose hierarchy leve
 <p>This is a standard paragraph with some <em>emphasized text</em></p>
 ----
 
-==== Sidebar
+==== CNXML Paragraph's with titles and block content (deprecated)
+
+CNXML had paras that could have titles in them and certain types of block content, like examples and figures. These need to be encoded as divs.
+
+*HTML element*: +<div data-type="para">+ 
+
+*Attribute requirements*: +data-type="para"+
+
+*Content model*: Zero or one +<div data-type="title">+ element that contains the para title); then zero or more Flow zero or Block elements
+
+*Example*:
+
+----
+<div data-type="para">
+  <div data-type="title">A paragraph title</div>
+  This is a titled paragraph with some <em>emphasized text
+  </em>
+  And then there might be some block content also, because that was legal in CNXML for some reason.
+</div>
+----
+
+==== Notes of various flavors 
+Related but tangential content
+
+KEF: Stopped here
+
+===== Sidebar
 
 *HTML element*: +<aside>+
 
@@ -82,7 +102,7 @@ The heading is followed by zero or more subheading elements whose hierarchy leve
 </aside>
 ----
 
-==== Admonitions
+==== Admonitions : Notes and Warnings
 
 *HTML element*: +<div>+
 
