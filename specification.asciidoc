@@ -92,9 +92,10 @@ Related but tangential content. HTML5 is kind of confusing on the use of asides.
  ++data-type="note
  ,tip,warning,important,aside,sidebar"++
  
-*Optional attributes*: For compatibility with CNXML: ++data-subtype++ (deprecated, use class instead) User supplied type for compatibility with CNXML
- ++data-display="inline,block,none"++
- ++data-label++ (deprecated, use class instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
+*Optional attributes*: For compatibility with CNXML: ++data-subtype++ (deprecated, use ++class++ instead) User supplied type.
+ ++data-display="none"++
+ ++data-label++ (deprecated, use 
+ ++class++ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
 
 *Content model*: Zero or one ++<h1>++-++<h6>++ elements that contains the sidebar title(s)); then zero or more Block elements
 
@@ -116,6 +117,29 @@ Related but tangential content. HTML5 is kind of confusing on the use of asides.
 
 ----
 <aside data-type="warning">Make sure to get your AsciiDoc markup right!</aside>
+----
+
+==== Inline notes
+CNXML allowed notes to be inline elements using ++display='inline'++
+
+*HTML element*: +<span>+
+
+*Attribute requirements*: ++data-type="note,tip,warning,important,aside"++
+ 
+*Optional attributes*: For compatibility with CNXML: ++data-subtype++ 
+(deprecated, use ++class++ instead) User supplied type.
+ ++data-display="none"++ to suppress visibility of the note
+ ++data-label++ (deprecated, use 
+ ++class++ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
+
+*Content model*: Zero or more flow elements
+
+*Example*:
+
+----
+<span data-type="note"><em>Amusing Digression</em>
+Did you know that in Boston, they call it "soda", and in Chicago, they call it "pop"?
+</span>
 ----
 
 ==== Tables
