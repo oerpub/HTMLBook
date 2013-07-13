@@ -26,9 +26,10 @@ These elements will be specified later.
 
 *Attribute requirements*: ++id++
 
-*Optional attribues*: ++data-label++, ++data-type=''sect<#>''++ for compatibility with HTMLBook, ++data-subtype++ A user defined type of section, for compatibility with CNXML. SubType can be any user-defined value that reflects the purpose of the section.
+*Optional attribues*: ++data-label++, ++data-type=''sect<#>''++ for compatibility with HTMLBook, ++data-subtype++ A user defined type of section, for compatibility with CNXML. Subtype can be any user-defined value that reflects the purpose of the section.
 
-*Content model*: The first child must be a main heading element corresponding to the title of the section. The hierarchy level can either be ++<h1>++ or can correspond to the presumed nesting level of the section to aid older browsers and current screen readers in understanding the document hierarchy. Styling of the headings should be done structurally, according to the section nesting, however, rather than using the header level.
+*Content model*: The first child must be a main heading element corresponding to the title of the section. The hierarchy level can either be ++<h1>++ or can correspond to the presumed nesting level of the section to aid older browsers and current screen readers in understanding the document hierarchy. It should be understood that those header levels are merely hints and can be canonicalized as 
+++<h1>++ when the world catches up with HTML5. Styling of the headings should be done structurally, according to the section nesting, however, rather than using the header level.
 
 The heading is followed by zero or more subheading elements whose hierarchy level is one lower than the main heading (e.g., +<h2>+ for a ++sect1++), folloed by zero or more Block elements, followed by zero or more +<section>+ elements
 
@@ -65,7 +66,7 @@ CNXML had paras that could have titles in them and certain types of block conten
 
 *HTML element*: +<div data-type="para">+ 
 
-*Attribute requirements*: +data-type="para"+
+*Attribute requirements*: ++data-type="para"++
 
 *Content model*: Zero or one +<div data-type="title">+ element that contains the para title); then zero or more Flow zero or Block elements
 
@@ -80,50 +81,41 @@ CNXML had paras that could have titles in them and certain types of block conten
 </div>
 ----
 
-==== Notes of various flavors 
-Related but tangential content
-
-KEF: Stopped here
-
-===== Sidebar
+==== Notes, sidebars, and admonitions of various flavors 
+Related but tangential content. HTML5 is kind of confusing on the use of asides. See http://html5doctor.com/aside-revisited/  It would be nice to use the +<aside>+ element for all of these and use 
+++data-type++ to distinguish between them. This is slightly different from what HTMLBook does, but incorporates their use of 
+++sidebar++. 
 
 *HTML element*: +<aside>+
 
-*Attribute requirements*: +data-type="sidebar"+
+*Attribute requirements*: ++id++,
+ ++data-type="note
+ ,tip,warning,important,aside,sidebar"++
+ 
+*Optional attributes*: For compatibility with CNXML: ++data-subtype++ (deprecated, use class instead) User supplied type for compatibility with CNXML
+ ++data-display="inline,block,none"++
+ ++data-label++ (deprecated, use class instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
 
-*Content model*: Zero or one +<h5>+ element that contains the sidebar title); then zero or more Block elements
-
-*Example*:
-
-----
-<aside data-type="sidebar">
-  <h5>Amusing Digression</h5>
-  <p>Did you know that in Boston, they call it "soda", and in Chicago, they call it "pop"?</p>
-</aside>
-----
-
-==== Admonitions : Notes and Warnings
-
-*HTML element*: +<div>+
-
-*Attribute requirements*: +data-type="note"+ or +data-type="warning"+, depending on the content within
-
-*Content model*: Either of the following content models is acceptable:
-
-* text and/or zero or more Inline elements
-* Zero or more ++<h1>++-++<h6>++ elements (for title and subtitles), followed by zero or more Block elements
+*Content model*: Zero or one ++<h1>++-++<h6>++ elements that contains the sidebar title(s)); then zero or more Block elements
 
 *Examples*:
 
 ----
-<div data-type="note">
-  <h1>Helpful Info</h1>
-  <p>Please take note of this important information</p>
-</div>
+<aside data-type="note">
+  <h1>Amusing Digression</h1>
+  <p>Did you know that in Boston, they call it "soda", and in Chicago, they call it "pop"?</p>
+</aside>
 ----
 
 ----
-<div data-type="warning">Make sure to get your AsciiDoc markup right!</div>
+<aside data-type="note">
+  <h1>Helpful Info</h1>
+  <p>Please take note of this important information</p>
+</aside>
+----
+
+----
+<aside data-type="warning">Make sure to get your AsciiDoc markup right!</aside>
 ----
 
 ==== Tables
