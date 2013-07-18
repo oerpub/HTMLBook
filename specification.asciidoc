@@ -24,14 +24,14 @@ These elements will be specified later.
 
 *HTML element*: +<section>+
 
-*Attribute requirements*: ++id++
+*Attribute requirements*: +id+
 
-*Optional attribues*: ++data-label++, ++data-type=''sect<#>''++ for compatibility with HTMLBook, ++data-subtype++ A user defined type of section, for compatibility with CNXML. Subtype can be any user-defined value that reflects the purpose of the section.
+*Optional attribues*: +data-label+, +data-type=''sect<#>''+ for compatibility with HTMLBook, +data-subtype+ A user defined type of section, for compatibility with CNXML. Subtype can be any user-defined value that reflects the purpose of the section.
 
-*Content model*: The first child must be a main heading element corresponding to the title of the section. The hierarchy level can either be ++<h1>++ or can correspond to the presumed nesting level of the section to aid older browsers and current screen readers in understanding the document hierarchy. It should be understood that those header levels are merely hints and can be canonicalized as 
-++<h1>++ when the world catches up with HTML5. Styling of the headings should be done structurally, according to the section nesting, however, rather than using the header level.
+*Content model*: The first child must be a main heading element corresponding to the title of the section. The hierarchy level can either be +<h1>+ or can correspond to the presumed nesting level of the section to aid older browsers and current screen readers in understanding the document hierarchy. It should be understood that those header levels are merely hints and can be canonicalized as 
++<h1>+ when the world catches up with HTML5. Styling of the headings should be done structurally, according to the section nesting, however, rather than using the header level.
 
-The heading is followed by zero or more subheading elements whose hierarchy level is one lower than the main heading (e.g., +<h2>+ for a ++sect1++), folloed by zero or more Block elements, followed by zero or more +<section>+ elements
+The heading is followed by zero or more subheading elements whose hierarchy level is one lower than the main heading (e.g., +<h2>+ for a +sect1+), folloed by zero or more Block elements, followed by zero or more +<section>+ elements
 
 *Example*:
 
@@ -68,16 +68,16 @@ CNXML had paras that could have titles in them and certain types of block conten
 
 *Attribute requirements*: ++data-type="para"++
 
-*Content model*: Zero or one +<div data-type="title">+ element that contains the para title); then zero or more Flow zero or Block elements
+*Content model*: Zero or one +<div data-type="title">+ element that contains the para title); a containing +<p>+ around zero or more Flow elements, and zero or Block elements
 
 *Example*:
 
 ----
 <div data-type="para">
   <div data-type="title">A paragraph title</div>
-  This is a titled paragraph with some <em>emphasized text
+  <p>This is a titled paragraph with some <em>emphasized text
   </em>
-  And then there might be some block content also, because that was legal in CNXML for some reason.
+  And then there might be some block content also, because that was legal in CNXML for some reason.</p>
 </div>
 ----
 
@@ -86,6 +86,8 @@ Related but tangential content. HTML5 is kind of confusing on the use of asides.
 ++data-type++ to distinguish between them. This is slightly different from what HTMLBook does, but incorporates their use of 
 ++sidebar++. 
 
+===== Option 1 (use aside)
+
 *HTML element*: +<aside>+
 
 *Attribute requirements*: ++id++,
@@ -93,6 +95,41 @@ Related but tangential content. HTML5 is kind of confusing on the use of asides.
  ,tip,warning,important,aside,sidebar"++
  
 *Optional attributes*: For compatibility with CNXML: ++data-subtype++ (deprecated, use ++class++ instead) User supplied type.
+ ++data-display="none"++
+ ++data-label++ (deprecated, use 
+ ++class++ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
+
+*Content model*: Zero or one ++<h1>++-++<h6>++ elements that contains the sidebar title(s)); then zero or more Block elements
+
+*Examples*:
+
+----
+<aside data-type="note">
+  <h1>Amusing Digression</h1>
+  <p>Did you know that in Boston, they call it "soda", and in Chicago, they call it "pop"?</p>
+</aside>
+----
+
+----
+<aside data-type="note">
+  <h1>Helpful Info</h1>
+  <p>Please take note of this important information</p>
+</aside>
+----
+
+----
+<aside data-type="warning">Make sure to get your AsciiDoc markup right!</aside>
+----
+
+===== Option 2 (use div and type, and subtype)
+
+*HTML element*: +<div type="note">+
+
+*Attribute requirements*: ++id++, +<div type="note">+
+ 
+*Optional attributes*: 
+++data-subtype="tip,warning,important,<user supplied subtype>"++
+For compatibility with CNXML: ++data-subtype++ (deprecated, use ++class++ instead) User supplied type.
  ++data-display="none"++
  ++data-label++ (deprecated, use 
  ++class++ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
