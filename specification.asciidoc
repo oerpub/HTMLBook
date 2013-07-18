@@ -68,7 +68,7 @@ CNXML had paras that could have titles in them and certain types of block conten
 
 *Attribute requirements*: +data-type="para"+
 
-*Content model*: Zero or one +<div data-type="title">+ element that contains the para title); a containing +<p>+ around zero or more Flow elements, and zero or Block elements
+*Content model*: Zero or one <div data-type="title"> element that contains the paragraph title; then zero or more Block elements. Note that we are NOT using headings, because then the nesting level of the para would need to be determined in order to put the right one in.
 
 *Example*:
 
@@ -82,20 +82,22 @@ CNXML had paras that could have titles in them and certain types of block conten
 ----
 
 ==== Notes, sidebars, and admonitions of various flavors 
-Related but tangential content. HTML5 is kind of confusing on the use of asides. See http://html5doctor.com/aside-revisited/  It would be nice to use the +<aside>+ element for all of these and use +data-type+ to distinguish between them. This is slightly different from what HTMLBook does, but incorporates their use of +sidebar+. 
+Related but tangential content. 
+
+NOTE: HTML5 is kind of confusing on the use of asides. See http://html5doctor.com/aside-revisited/  It would be nice to use the +<aside>+ element for all of these and use +data-type+ to distinguish between them. This is slightly different from what HTMLBook does, but incorporates their use of +sidebar+. 
 
 ===== Option 1 (use aside)
 
 *HTML element*: +<aside>+
 
-*Attribute requirements*: +id+,
- +data-type="note,tip,warning,important,aside,sidebar"+
+*Attribute requirements*: +id+, +data-type="note,tip,warning,important,aside,sidebar"+
  
-*Optional attributes*: For compatibility with CNXML: +data-subtype+ (deprecated, use +class+ instead) User supplied type.
- +data-display="none"+
+*Optional attributes*: For compatibility with CNXML: + 
+ +data-subtype+ (deprecated, use +class+ instead) : A user supplied type. +
+ +data-display="none"+ : To hide the element.
  +data-label+ (deprecated, use +class+ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
 
-*Content model*: Zero or one ++<h1>++-++<h6>++ elements that contains the sidebar title(s)); then zero or more Block elements
+*Content model*: Zero or one +<h1>+ - +<h6>+ elements that contains the sidebar title(s)); then zero or more Block elements
 
 *Examples*:
 
@@ -117,62 +119,63 @@ Related but tangential content. HTML5 is kind of confusing on the use of asides.
 <aside data-type="warning">Make sure to get your AsciiDoc markup right!</aside>
 ----
 
-===== Option 2 (use div and type, and subtype)
+===== Option 2 (use div, type, and subtype)
 
 *HTML element*: +<div type="note">+
 
-*Attribute requirements*: ++id++, +<div type="note">+
+*Attribute requirements*: +id+, +<div data-type="note">+
  
 *Optional attributes*: 
-++data-subtype="tip,warning,important,<user supplied subtype>"++
-For compatibility with CNXML: ++data-subtype++ (deprecated, use ++class++ instead) User supplied type.
- ++data-display="none"++
- ++data-label++ (deprecated, use 
- ++class++ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
++data-subtype="tip,warning,important,<user supplied subtype>"+ +
+For compatibility with CNXML: + 
+ +data-subtype+ (deprecated, use +class+ instead) : A user supplied type. +
+ +data-display="none"+ : To hide the note.
+ +data-label+ (deprecated, use +class+ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
 
-*Content model*: Zero or one ++<h1>++-++<h6>++ elements that contains the sidebar title(s)); then zero or more Block elements
+*Content model*: Zero or one +<h1>+ - +<h6>+ elements that contains the sidebar title(s)); then zero or more Block elements
 
 *Examples*:
 
 ----
-<aside data-type="note">
+<div data-type="note">
   <h1>Amusing Digression</h1>
   <p>Did you know that in Boston, they call it "soda", and in Chicago, they call it "pop"?</p>
-</aside>
+</div>
 ----
 
 ----
-<aside data-type="note">
+<div data-type="note">
   <h1>Helpful Info</h1>
   <p>Please take note of this important information</p>
-</aside>
+</div>
 ----
 
 ----
-<aside data-type="warning">Make sure to get your AsciiDoc markup right!</aside>
+<div data-type="note" data-subtype="warning">Make sure to get your AsciiDoc markup right!</div>
 ----
 
-==== Inline notes
-CNXML allowed notes to be inline elements using ++display='inline'++
+==== Inline notes (use span, type, and subtype)
+CNXML allowed notes to be inline elements using +display='inline'+
 
-*HTML element*: +<span>+
+*HTML element*: +<span type="note">+
 
-*Attribute requirements*: ++data-type="note,tip,warning,important,aside"++
- 
-*Optional attributes*: For compatibility with CNXML: ++data-subtype++ 
-(deprecated, use ++class++ instead) User supplied type.
- ++data-display="none"++ to suppress visibility of the note
- ++data-label++ (deprecated, use 
- ++class++ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
+*Attribute requirements*: +data-type="note"+ 
+
+*Optional attributes*: 
++data-subtype="tip,warning,important,<user supplied subtype>"+ +
+For compatibility with CNXML: + 
+ +data-subtype+ (deprecated, use +class+ instead) : A user supplied type. +
+ +data-display="none"+ : To hide the note.
+ +data-label+ (deprecated, use +class+ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
 
 *Content model*: Zero or more flow elements
 
 *Example*:
 
 ----
-<span data-type="note"><em>Amusing Digression</em>
+Here is my main point, but (<span data-type="note"><em>Amusing Digression</em>
 Did you know that in Boston, they call it "soda", and in Chicago, they call it "pop"?
-</span>
+</span>) and now back to my point.
 ----
 
 ==== Tables
