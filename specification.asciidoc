@@ -66,7 +66,7 @@ CNXML had paras that could have titles in them and certain types of block conten
 
 *HTML element*: +<div data-type="para">+ 
 
-*Attribute requirements*: ++data-type="para"++
+*Attribute requirements*: +data-type="para"+
 
 *Content model*: Zero or one +<div data-type="title">+ element that contains the para title); a containing +<p>+ around zero or more Flow elements, and zero or Block elements
 
@@ -82,22 +82,18 @@ CNXML had paras that could have titles in them and certain types of block conten
 ----
 
 ==== Notes, sidebars, and admonitions of various flavors 
-Related but tangential content. HTML5 is kind of confusing on the use of asides. See http://html5doctor.com/aside-revisited/  It would be nice to use the +<aside>+ element for all of these and use 
-++data-type++ to distinguish between them. This is slightly different from what HTMLBook does, but incorporates their use of 
-++sidebar++. 
+Related but tangential content. HTML5 is kind of confusing on the use of asides. See http://html5doctor.com/aside-revisited/  It would be nice to use the +<aside>+ element for all of these and use +data-type+ to distinguish between them. This is slightly different from what HTMLBook does, but incorporates their use of +sidebar+. 
 
 ===== Option 1 (use aside)
 
 *HTML element*: +<aside>+
 
-*Attribute requirements*: ++id++,
- ++data-type="note
- ,tip,warning,important,aside,sidebar"++
+*Attribute requirements*: +id+,
+ +data-type="note,tip,warning,important,aside,sidebar"+
  
-*Optional attributes*: For compatibility with CNXML: ++data-subtype++ (deprecated, use ++class++ instead) User supplied type.
- ++data-display="none"++
- ++data-label++ (deprecated, use 
- ++class++ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
+*Optional attributes*: For compatibility with CNXML: +data-subtype+ (deprecated, use +class+ instead) User supplied type.
+ +data-display="none"+
+ +data-label+ (deprecated, use +class+ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
 
 *Content model*: Zero or one ++<h1>++-++<h6>++ elements that contains the sidebar title(s)); then zero or more Block elements
 
