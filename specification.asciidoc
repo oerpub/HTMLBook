@@ -75,9 +75,9 @@ CNXML had paras that could have titles in them and certain types of block conten
 ----
 <div data-type="para">
   <div data-type="title">A paragraph title</div>
-  <p>This is a titled paragraph with some <em>emphasized text
-  </em>
-  And then there might be some block content also, because that was legal in CNXML for some reason.</p>
+  <p>This is a titled paragraph with some <em>emphasized text</em></p>
+  <table>...</table>
+  <p>And then there might be some block content also, because that was legal in CNXML for some reason.</p>
 </div>
 ----
 
