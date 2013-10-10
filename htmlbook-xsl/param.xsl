@@ -11,10 +11,13 @@
               encoding="UTF-8"/>
   <xsl:preserve-space elements="*"/>
 
+  <!-- Verbose log output; off by default -->
+  <xsl:param name="verbose" select="0"/>
+
   <xsl:param name="book-language">
     <xsl:choose>
       <xsl:when test="//h:html[@lang != '']|//h:body[@lang != '']">
-	<xsl:value-of select="(//h:html[@lang != '']|//h:body[@lang != ''])[1]"/>
+	<xsl:value-of select="(//h:html[@lang != '']|//h:body[@lang != ''])[1]/@lang"/>
       </xsl:when>
       <xsl:otherwise>
 	<xsl:text>en</xsl:text>
@@ -35,13 +38,15 @@
       </xsl:when>
       <!-- Otherwise default to "en" (English) -->
       <xsl:otherwise>
-	<xsl:copy-of select="document($localizations-dir, 'en', '.xml')"/>
-	<xsl:message><xsl:value-of select="document($localizations-dir, 'en', '.xml')"/></xsl:message>
+	<xsl:copy-of select="document(concat($localizations-dir, 'en', '.xml'))"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:param>
 
   <!-- Titling and labeling params -->
+
+  <!-- Specify whether to autogenerate labels on sectioning and formal elements in HTML output (as opposed to labeling with CSS); default is to not include labels (0) -->
+  <xsl:param name="autogenerate.labels" select="0"/>
 
   <!-- Separator to be used between label and title -->
   <xsl:param name="label.and.title.separator" select="'. '"/>
@@ -99,8 +104,20 @@ sect5:none
   <!-- Specify whether to include number labels in TOC entries -->
   <xsl:param name="toc-include-labels" select="0"/>
 
+  <!-- Specify how many levels of sections to include in TOC. 
+       A $toc.section.depth of 0 indicates only chapter-level headings and above to be included in TOC
+       A $toc.section depth of 1 indicates only sect1-level headings and above to be included in TOC
+       And so on...
+    -->
+  <xsl:param name="toc.section.depth" select="2"/>
+
   <!-- XREF-specific params -->
   <xsl:param name="autogenerate-xrefs" select="1"/>
+
+  <!-- Footnote-specific params -->
+
+  <!-- Process footnotes into separate marker/hyperlink and footnote content -->
+  <xsl:param name="process.footnotes" select="0"/>
   
   <!-- Specify whether or not to overwrite any content in XREF <a> elements when doing XREF gentext -->
   <xsl:param name="xref-placeholder-overwrite-contents" select="0"/>
@@ -121,5 +138,15 @@ sect3:xref
 sect4:xref
 sect5:xref
   </xsl:param>
+
+  <!-- Filename of CSS to be embedded in <link> in output in HTML <head> -->
+  <!-- Leave blank to omit CSS -->
+  <xsl:param name="css.filename"/>
+
+  <!-- When set to 1, convert HTML5 structural elements like <section> and <figure> to <div> -->
+  <xsl:param name="html4.structural.elements" select="0"/>
+
+  <!-- When set to 1, add a <div> within a <figure> to encapsulate all the non-caption <figure> content (to facilitate styling) -->
+  <xsl:param name="figure.border.div" select="1"/>
 
 </xsl:stylesheet> 

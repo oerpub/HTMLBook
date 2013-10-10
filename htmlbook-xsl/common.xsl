@@ -10,6 +10,9 @@
               encoding="UTF-8"/>
   <xsl:preserve-space elements="*"/>
 
+  <xsl:variable name="lowercase" select="'abcdefghijklmnopqrstuvwxyz'"/>
+  <xsl:variable name="uppercase" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+
   <!-- key for getting elements by id -->
   <xsl:key name="id" match="*" use="@id"/>
 
@@ -22,11 +25,39 @@
 
   <!-- Stylesheet for utility templates common to other stylesheets -->
 
-  <!-- Generate target @href value pointing to given node -->
+  <!-- Template for generating standardized log messages -->
+  <xsl:template name="log-message">
+    <xsl:param name="type" select="'INFO'"/>
+    <xsl:param name="message"/>
+    <xsl:param name="terminate" select="'no'"/>
+
+    <!-- Only output DEBUG messages if $verbose is true -->
+    <xsl:if test="($type != 'DEBUG') or ($verbose = 1)">
+
+      <xsl:variable name="log-output">----&#x0A;<xsl:value-of select="$type"/>: <xsl:value-of select="$message"/>&#x0A;----&#x0A;&#x0A;</xsl:variable>
+
+      <!-- In XSLT 2.0, we could parameterize the value of the "terminate" attr, but that doesn't fly in XSLT 1.0,
+	     hence kludge-y handling below -->
+      <xsl:choose>
+	<xsl:when test="$terminate = 'yes'">
+	  <xsl:message terminate="yes">
+	    <xsl:value-of select="$log-output"/>
+	  </xsl:message>
+	</xsl:when>
+	<xsl:otherwise>
+	  <xsl:message>
+	    <xsl:value-of select="$log-output"/>
+	  </xsl:message>
+	</xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
+								      <!-- Generate target @href value pointing to given node -->
   <!-- Borrowed and adapted from xhtml/html.xsl in docbook-xsl stylesheets -->
   <xsl:template name="href.target">
     <xsl:param name="context" select="."/>
     <xsl:param name="object" select="."/>
+    <xsl:param name="source-link-node"/>
     <xsl:text>#</xsl:text>
     <xsl:call-template name="object.id">
       <xsl:with-param name="object" select="$object"/>
@@ -283,10 +314,26 @@
 	<!-- If $calculated-numeration-format doesn't match above values or is blank, no label can be generated -->
 	<xsl:choose>
 	  <xsl:when test="normalize-space($calculated-numeration-format) = ''">
-	    <xsl:message>No label numeration format specified for <xsl:value-of select="$data-type"/>: skipping label</xsl:message>
+	    <xsl:call-template name="log-message">
+	      <xsl:with-param name="type" select="'DEBUG'"/>
+	      <xsl:with-param name="message">
+		<xsl:text>No label numeration format specified for </xsl:text>
+		<xsl:value-of select="$data-type"/>
+		<xsl:text>: skipping label</xsl:text>
+	      </xsl:with-param>
+	    </xsl:call-template>
 	  </xsl:when>
 	  <xsl:otherwise>
-	    <xsl:message>Unable to generate label for <xsl:value-of select="$data-type"/> with numeration format <xsl:value-of select="$calculated-numeration-format"/>.</xsl:message>
+	    <xsl:call-template name="log-message">
+	      <xsl:with-param name="type" select="'WARNING'"/>
+	      <xsl:with-param name="message">
+		<xsl:text>Unable to generate label for </xsl:text>
+		<xsl:value-of select="$data-type"/> 
+		<xsl:text> with numeration format </xsl:text>
+		<xsl:value-of select="$calculated-numeration-format"/>
+		<xsl:text>.</xsl:text>
+	      </xsl:with-param>
+	    </xsl:call-template>
 	  </xsl:otherwise>
 	</xsl:choose>
       </xsl:otherwise>
@@ -368,6 +415,32 @@
       </xsl:when>
       <xsl:otherwise>
 	<!-- For all other elements besides <section> and <div>, just use the local-name -->
+	<xsl:value-of select="local-name($node)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="html.output.element">
+    <!-- Logic to decide which HTML element to output for a given source element. -->
+    <xsl:param name="node" select="."/>
+    <xsl:choose>
+      <!-- If $html4.structural.elements is enabled, HTML5 <section> and <figure> elements are replaced with a <div> -->
+      <xsl:when test="$html4.structural.elements = 1">
+	<xsl:choose>
+	  <xsl:when test="$node[self::h:figure or self::h:section or self::h:aside]">
+	    <xsl:text>div</xsl:text>
+	  </xsl:when>
+	  <xsl:when test="$node[self::h:figcaption]">
+	    <xsl:text>h5</xsl:text>
+	  </xsl:when>
+	  <xsl:otherwise>
+	    <!-- No change in element name for other elements -->
+	    <xsl:value-of select="local-name($node)"/>
+	  </xsl:otherwise>
+	</xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+	<!-- Otherwise, no change in element name -->
 	<xsl:value-of select="local-name($node)"/>
       </xsl:otherwise>
     </xsl:choose>
