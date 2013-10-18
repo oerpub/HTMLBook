@@ -1,10 +1,10 @@
-=== OERBook
+=== TextbookHTML
 
-Let's write textbooks in HTML! OERBook is an open, HTML5-based standard for the authoring and production of both print and digital textbooks. OERBook is a fork of OReilly Media's HTMLBook for Docbook. Where possible OERBook just extends HTMLBook with additional semantic features like homework problems. 
+Let's write textbooks in HTML! TextbookHTML is an open, HTML5-based standard for the authoring and production of both print and digital textbooks. TextbookHTML is a fork of OReilly Media's HTMLBook for Docbook. Where possible TextbookHTML just extends HTMLBook with additional semantic features like homework problems. 
 
-Read the Working Draft of the OERBook Specification here:
+Read the Working Draft of the TextbookHTML Specification here:
 
-https://github.com/oerpub/HTMLBook/blob/master/specification.asciidoc
+https://github.com/oerpub/TextbookHTML/blob/master/specification.asciidoc
 
 === Original HTMLBook README which mostly applies directly
 
