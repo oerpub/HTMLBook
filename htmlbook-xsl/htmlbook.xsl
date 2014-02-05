@@ -14,9 +14,14 @@
 
   <xsl:include href="param.xsl"/> <!-- HTMLBook params -->
   <xsl:include href="elements.xsl"/> <!-- Postprocessing of elements as needed (e.g., Id decoration as needed for autogeneration of TOC/index) -->
+  <xsl:include href="pis.xsl"/> <!-- Handling for Processing Instructions -->
   <xsl:include href="tocgen.xsl"/> <!-- Autogeneration of TOC if specified in autogenerate-toc -->
   <xsl:include href="indexgen.xsl"/> <!-- Autogeneration of index if specified in autogenerate-index -->
   <xsl:include href="xrefgen.xsl"/> <!-- Autogeneration of XREFs if specified in autogenerate-xrefs -->
+
+  <xsl:include href="functions-exsl.xsl"/>   <!-- Functions that are compatible with exsl package -->
+  <!-- If you are using an XSLT 2.0 processor, comment out the above include and uncomment the following include -->
+  <!-- <xsl:include href="functions-xslt2.xsl"/> --> <!-- Functions that are compatible with XSLT 2.0 processors --> 
 
   <xsl:output method="xml"
               encoding="UTF-8"/>
