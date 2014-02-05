@@ -110,7 +110,7 @@ NOTE: HTML5 is kind of confusing on the use of asides. See http://html5doctor.co
  
 *Optional attributes*: For compatibility with CNXML: + 
  +data-subtype+ (deprecated, use +class+ instead) : A user supplied type. +
- +data-display="none"+ : To hide the element.
+ +data-display="none"+ (deprecated, use +class+ instead): To hide the element.
  +data-label+ (deprecated, use +class+ instead) : A user-defined label that overrides or suppresses the label that would normally be supplied.  
 
 *Content model*: Zero or one +<h1>+ - +<h6>+ elements that contains the sidebar title(s)); then zero or more Block elements
