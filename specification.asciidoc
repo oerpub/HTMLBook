@@ -1,6 +1,6 @@
-== OERBook Specification: Working Pre-Draft 13 July 2013
+== TextbookHTML Specification: Working Draft 17 October 2013
 
-Requirements for HTML5 elements in the OERBook specification are below. This specification is closely aligned with the HTMLBook specification and also with CNXML, an XML language for open educational resources originated by Rice University's Connexions project. 
+Requirements for HTML5 elements in the TextbookHTML specification are below. This specification is closely aligned with the HTMLBook specification and also with CNXML, an XML language for open educational resources originated by Rice University's Connexions project. 
 
 The specification differs from HTMLBook and EPUB glosses in the following cases
 1. Extensions to support semantic textbook content like exercises.
@@ -14,7 +14,17 @@ If no content model or attribute requirements are explicitly specified, then OER
 
 === Revision History and Notes
 
+17 October 2013: Name changes and catch up on the language.
+
 13 July 2013: Zeroth release of Working Draft, don't pay attention to this yet. Just started with section and para.
+
+=== Compatibilities with github-bookeditor
+
+Github-bookeditor (http://github.com/oerpub/github-bookeditor) is an HTML5 editor for producing books in the format specified here. There are two major differences with the current (Oct 17 2013) version of the editor. 
+
+Class versus data-type: First, the editor started out using +class+ for specifying the main semantic type of the element. But we decided to switch to +data-type+ so that class could be used for style glosses. However, the editor has not been reformatted to do this yet. 
+
+Sections and headings: Secondly, the base editor uses headings to represent sections. On load and save, there will be XSL or javascript to convert sections to and from headings. Sections that cannot be represented by headings are left in place. This conversion software is not yet hooked into the editor. The editor will work on documents that still have sections in them, but it will be less efficient. 
 
 === Book Component elements
 
