@@ -14,6 +14,8 @@ If no content model or attribute requirements are explicitly specified, then Tex
 
 === Revision History and Notes
 
+26 April 2014: Phil sprint
+
 22 February 2014: Added equation, math, alternates, and an embed section.
 
 05 February 2014: Clarifications, links to metadata, put in notes about what is missing, and where I stopped editing the HTMLBook stuff.
