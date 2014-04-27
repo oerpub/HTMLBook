@@ -300,6 +300,85 @@ Did you know that in Boston, they call it "soda", and in Chicago, they call it "
 </div>
 ----
 
+==== Exercise
+
+*HTML element*: +<div>+
+
+*Attribute requirements*: +data-type="exercise"+
+
+*Content model*: Zero or one ++<div data-type="title">++ followed by one or more Problem elements, followed by zero or more Solution elements
+
+*Example*:
+
+----
+<div data-type="exercise">
+  <div data-type="title">Force on a Block</div>
+  <div data-type="problem">If a block has a mass of 2kg ...</div>
+  <div data-type="solution">3 Newtons</div>
+</div>
+----
+
+
+===== Problem
+
+*HTML element*: +<div>+
+
+*Attribute requirements*: +data-type="problem"+
+
+*Content model*: Either of the following content models is acceptable:
+
+* text and/or zero or more Inline elements
+* Zero or one ++<div data-type="title">++ followed by zero or more Block elements
+
+*Example*:
+
+----
+<div data-type="problem">If a block has a mass of 2kg ...</div>
+
+
+<div data-type="problem">
+  <div data-type="title">Find the Force</div>
+  <p>If a block has a mass of 2kg ...</p>
+</div>
+----
+
+===== Solution
+
+*HTML element*: +<div>+
+
+*Attribute requirements*: +data-type="solution"+
+
+*Content model*: Either of the following content models is acceptable:
+
+* text and/or zero or more Inline elements
+* Zero or more Block elements
+
+*Example*:
+
+----
+<div data-type="solution">2 Newtons</div>
+----
+
+
+==== Rule
+
+*HTML element*: +<div>+
+
+*Attribute requirements*: +data-type="rule"+
+
+*Content model*: Zero or one ++<div data-type="title">++ followed by zero or more Statement elements, followed by zero or more Proof elements
+
+*Example*:
+
+----
+<div data-type="exercise">
+  <div data-type="title">Force on a Block</div>
+  <div data-type="problem">If a block has a mass of 2kg ...</div>
+  <div data-type="solution">3 Newtons</div>
+</div>
+----
+
+
 ==== Code listings
 
 *HTML element*: +<pre>+
